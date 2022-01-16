@@ -25,15 +25,17 @@ function App() {
               alt={student.firstname}
               className="student-image"
             ></img>
-            <div className="name">
-              {student.firstName} {student.lastName}
-            </div>
-            <div>Email: {student.email}</div>
-            <div>Company: {student.company}</div>
-            <div>
-              Average:{" "}
-              {student.grades.map(Number).reduce((a, b) => a + b, 0) /
-                student.grades.length}
+            <div className="student-info-container">
+              <div className="name">
+                {student.firstName} {student.lastName}
+              </div>
+              <div>Email: {student.email}</div>
+              <div>Company: {student.company}</div>
+              <div>
+                Average:{" "}
+                {student.grades.map(Number).reduce((a, b) => a + b, 0) /
+                  student.grades.length}
+              </div>
             </div>
           </div>
         ))}
