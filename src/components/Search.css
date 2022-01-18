@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap");
+
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5em;
+  width: 47vw;
+  border: 0px;
+  padding: 1vw 0;
+  border-bottom: 2px solid black;
+}
