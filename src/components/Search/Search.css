@@ -13,3 +13,7 @@
   padding: 1vw 0;
   border-bottom: 2px solid black;
 }
+
+.search-input:focus {
+  outline: none;
+}

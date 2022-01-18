@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
-import Search from "./components/Search";
+import Search from "./components/Search/Search";
+import Student from "./components/Student/Student";
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -27,7 +28,6 @@ function App() {
         student.lastName.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setSearchResults(results);
-    // setApplySort(true);
   };
   const handleSubmit = (e) => e.preventDefault();
 
@@ -36,33 +36,7 @@ function App() {
       <div className="student-container">
         <Search onSubmit={handleSubmit} handleSearch={handleSearch} />
         {searchResults.map((student) => (
-          <div key={student.id} className="student">
-            <img
-              src={student.pic}
-              alt={student.firstname}
-              className="student-image"
-            ></img>
-            <div className="student-info-container">
-              <div className="student-name">
-                {student.firstName} {student.lastName}
-              </div>
-              <div className="student-email">Email: {student.email}</div>
-              <div className="student-company">Company: {student.company}</div>
-              <div className="student-skill">Skill: {student.skill}</div>
-              <div className="student-average">
-                Average:{" "}
-                {student.grades.map(Number).reduce((a, b) => a + b, 0) /
-                  student.grades.length}
-                %
-              </div>
-              <button>+</button>
-              {/* <div className="show-grades">
-                {student.grades.map((grades) => (
-                  <div>{grades}</div>
-                ))}
-              </div> */}
-            </div>
-          </div>
+          <Student student={student} />
         ))}
       </div>
     </div>
