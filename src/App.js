@@ -7,6 +7,7 @@ import Student from "./components/Student/Student";
 function App() {
   const [students, setStudents] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [tagCollection, setTagCollection] = useState({});
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -19,7 +20,7 @@ function App() {
     fetchStudents();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearchName = (e) => {
     const results = students.filter(
       (student) =>
         student.firstName
@@ -29,14 +30,36 @@ function App() {
     );
     setSearchResults(results);
   };
-  const handleSubmit = (e) => e.preventDefault();
+
+  const handleSearchTag = (e) => {
+    if (e.target.value === "") {
+      setSearchResults(students);
+      return;
+    }
+
+    const matchingIds = Object.keys(tagCollection).filter((id) =>
+      tagCollection[id].some((arr) => arr.includes(e.target.value))
+    );
+
+    const results = students.filter((student) =>
+      matchingIds.includes(student.id)
+    );
+
+    setSearchResults(results);
+  };
 
   return (
     <div className="App">
       <div className="student-container">
-        <Search onSubmit={handleSubmit} handleSearch={handleSearch} />
+        <Search placeholder="Search by Name" handleSearch={handleSearchName} />
+        <Search placeholder="Search by Tag" handleSearch={handleSearchTag} />
         {searchResults.map((student) => (
-          <Student student={student} />
+          <Student
+            key={student.id}
+            student={student}
+            tagCollection={tagCollection}
+            setTagCollection={setTagCollection}
+          />
         ))}
       </div>
     </div>

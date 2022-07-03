@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Student.css";
 
-function Student({ student }) {
+function Student({ student, tagCollection, setTagCollection }) {
   const [buttonState, setButtonState] = useState("+");
   const [showMore, setShowMore] = useState("true");
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      setTagCollection({ ...tagCollection, [student.id]: tags });
+    }
+  }, [tags]);
 
   const handleShowMore = () => {
     if (showMore === false) {
@@ -13,6 +20,16 @@ function Student({ student }) {
     }
     setShowMore(!showMore);
   };
+
+  const handleSubmitTag = (e) => {
+    e.preventDefault();
+    const newTag = e.target.value;
+    setTags((tags) => {
+      return [...tags, newTag];
+    });
+    e.target.value = "";
+  };
+
   return (
     <div key={student.id} className="student">
       <div className="student-info-container">
@@ -52,6 +69,22 @@ function Student({ student }) {
           </div>
         ))}
       </div>
+
+      {tagCollection[student.id] && (
+        <div>
+          {tagCollection[student.id].map((tag, i) => (
+            <div key={i}>{tag}</div>
+          ))}
+        </div>
+      )}
+
+      <input
+        placeholder="Add a tag"
+        type="text"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSubmitTag(e);
+        }}
+      />
     </div>
   );
 }
