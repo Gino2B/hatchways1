@@ -8,7 +8,7 @@ function Search(props) {
         value={props.value}
         onChange={(e) => props.handleSearch(e)}
         name="Search"
-        placeholder="Search by Name"
+        placeholder={props.placeholder}
         type="text"
         autoFocus
       />
